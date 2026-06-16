@@ -1,9 +1,9 @@
 pipeline {
-  agent any
-
-  tools {
-    allure 'Allure'
-    nodejs "Node22"
+  agent {
+    docker {
+      image 'mcr.microsoft.com/playwright:v1.55.0-noble'
+      args '-u root'   // run as root so npm can install
+    }
   }
 
   stages {
@@ -41,6 +41,7 @@ pipeline {
         jdk: '',
         results: [[path: 'allure-results']]
       )
+
       publishHTML([
         allowMissing: false,
         alwaysLinkToLastBuild: true,
@@ -49,10 +50,12 @@ pipeline {
         reportFiles: 'index.html',
         reportName: 'Playwright Report'
       ])
+
       archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
       archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
       archiveArtifacts artifacts: 'test-results/**', allowEmptyArchive: true
     }
+
     success {
       echo 'Playwright execution completed successfully.'
     }
