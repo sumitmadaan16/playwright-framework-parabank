@@ -1,0 +1,49 @@
+import test, { expect } from "@playwright/test";
+import RegisterUserPage from "../../pages/register.page";
+import {getData, getUniqueUsername} from "../../utils/dataHelper";
+import {get_accounts} from "../../utils/get_account_api";
+import openNewAccount from "../../pages/open_new_account.page";
+import {login_user} from "../../utils/login_api";
+
+const data = getData();
+const uniqueUserName = getUniqueUsername(data.user.userName);
+test.beforeAll("registration Logic", async ({ browser }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    const regObj = new RegisterUserPage(page);
+    await regObj.registerUser(
+        data.url.baseUrl,
+        uniqueUserName,
+        data.user.firstName,
+        data.user.lastName,
+        data.user.address,
+        data.user.city,
+        data.user.state,
+        data.user.zipCode,
+        data.user.phoneNo,
+        data.user.ssn,
+        data.user.password
+    );
+
+    const openAccount: openNewAccount = new openNewAccount(page)
+    await openAccount.openSavingsAccount(data.url.registeredUrl)
+
+    await context.close();
+});
+
+test("TC-API-03", async ({ request }) => {
+    const loginRes = await login_user(request, uniqueUserName, data.user.password);
+    const customer_id = loginRes.id
+
+    const accountData = await get_accounts(request, customer_id);
+    // console.log(accountData)
+    const len = accountData.length;
+    const lastAccount = accountData[len - 1];
+    // Assert that the object has a type property
+    expect(lastAccount).toHaveProperty("type");
+    // Assert that the type is "SAVINGS"
+    expect(lastAccount.type).toBe("SAVINGS");
+    // Assert that the ID matches what you expect (optional)
+    // console.log("Last account ID:", lastAccount.id);
+});
