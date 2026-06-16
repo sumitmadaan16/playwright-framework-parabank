@@ -1,8 +1,8 @@
 pipeline {
   agent {
-    docker {
+    dockerContainer {
       image 'mcr.microsoft.com/playwright:v1.55.0-noble'
-      args '-u root'   // run as root so npm can install
+      args '-u root'
     }
   }
 
