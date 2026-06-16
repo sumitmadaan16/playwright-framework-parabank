@@ -1,8 +1,9 @@
 pipeline {
-  agent {
-    dockerContainer {
-      image 'mcr.microsoft.com/playwright:v1.55.0-noble'
-    }
+  agent any
+
+  tools {
+    allure 'Allure'
+    nodejs "Node"
   }
 
   stages {
