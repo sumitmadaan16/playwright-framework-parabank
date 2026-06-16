@@ -60,7 +60,7 @@ test.describe("Balance Check After Fund Transfer Flow", () => {
         await context.close();
     });
 
-    test('Transfer Funds before balance check - TC-UI-04', async ({ page }) => {
+    test('Transfer Funds - TC-UI-05', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
 
@@ -76,7 +76,7 @@ test.describe("Balance Check After Fund Transfer Flow", () => {
 
     });
 
-    test('Balance Check After Fund Transfer - TC-UI-06', async ({ page }) => {
+    test('Balance Check After Fund Transfer - TC-UI-07', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
 

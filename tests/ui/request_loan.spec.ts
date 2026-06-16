@@ -5,10 +5,7 @@ import openNewAccountPage from "../../pages/open_new_account.page";
 import requestLoanPage from "../../pages/request_loan.page";
 import { getData, getUniqueUsername } from "../../utils/dataHelper";
 
-// Static config loaded once for this file
 const data = getData();
-
-// Unique username scoped to this file — generated once at module load
 const uniqueUserName = getUniqueUsername(data.user.userName);
 
 test.describe("Request Loan Flow", () => {
@@ -41,7 +38,7 @@ test.describe("Request Loan Flow", () => {
         await context.close();
     });
 
-    test('Request Loan - TC-UI-05', async ({ page }) => {
+    test('Request Loan - TC-UI-06', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
         const loanPage = new requestLoanPage(page);

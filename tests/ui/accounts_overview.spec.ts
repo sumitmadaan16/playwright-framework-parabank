@@ -5,15 +5,10 @@ import openNewAccountPage from "../../pages/open_new_account.page";
 import accountOverviewPage from "../../pages/account_overview.page";
 import { getData, getUniqueUsername } from "../../utils/dataHelper";
 
-// Static config loaded once for this file
 const data = getData();
-
-// Unique username scoped to this file — generated once at module load
 const uniqueUserName = getUniqueUsername(data.user.userName);
 
 test.describe("Account Creation Flow", () => {
-    // serial mode: TC-UI-02 sets savingsAccNumber, TC-UI-03 sets checkingAccNumber,
-    // TC-UI-04 reads both — must run in order in the same worker
     test.describe.configure({ mode: 'serial' });
 
     let savingsAccNumber: string;
@@ -23,7 +18,6 @@ test.describe("Account Creation Flow", () => {
         const context = await browser.newContext();
         const page = await context.newPage();
 
-        // Registration on ParaBank auto-logs in — no separate loginUser needed as we are using browser fixture
         const regObj = new RegisterUserPage(page);
         await regObj.registerUser(
             data.url.baseUrl,
@@ -64,7 +58,6 @@ test.describe("Account Creation Flow", () => {
 
         checkingAccNumber = await checkingAcc.getAccountNumber();
         await page.screenshot({ path: `screenshots/open_checking_account.png`, fullPage: true });
-
         // console.log(`${checkingAccNumber}`);
     });
 

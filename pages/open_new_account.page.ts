@@ -31,7 +31,7 @@ class openNewAccount {
         // asserting that account number of new account contains digit
         await expect(this.accountNumberLink).toHaveText(/\d+/);
         // asserting that account number of new account is a link
-        await expect(this.accountNumberLink).toHaveAttribute('href', /activity\.htm\?id=\d+/);
+        await expect(this.accountNumberLink).toHaveAttribute('href', /activity\.htm\?id=\d+/); // completes TC-UI-03
     }
 
     async openCheckingAccount(url: string) {
@@ -43,7 +43,7 @@ class openNewAccount {
         await expect(this.successMessage).toBeVisible({ timeout: 10000 });
         await expect(this.accountNumberLink).toBeVisible();
         await expect(this.accountNumberLink).toHaveText(/\d+/);
-        await expect(this.accountNumberLink).toHaveAttribute('href', /activity\.htm\?id=\d+/);
+        await expect(this.accountNumberLink).toHaveAttribute('href', /activity\.htm\?id=\d+/);  // completes TC-UI-03
     }
 
     async getAccountNumber(): Promise<string> {

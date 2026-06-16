@@ -4,10 +4,7 @@ import loginUserPage from "../../pages/login.page";
 import openNewAccountPage from "../../pages/open_new_account.page";
 import { getData, getUniqueUsername } from "../../utils/dataHelper";
 
-// Static config loaded once for this file
 const data = getData();
-
-// Unique username scoped to this file — generated once at module load
 const uniqueUserName = getUniqueUsername(data.user.userName);
 
 test.describe("Open Checking Account Flow", () => {
@@ -34,7 +31,7 @@ test.describe("Open Checking Account Flow", () => {
         await context.close();
     });
 
-    test('Opening Checking Account - TC-UI-03', async ({ page }) => {
+    test('Opening Checking Account - TC-UI-02', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
 

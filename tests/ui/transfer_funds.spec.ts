@@ -42,7 +42,7 @@ test.describe("Transfer Funds Flow", () => {
         await context.close();
     });
 
-    test('Transfer Funds - TC-UI-04', async ({ page }) => {
+    test('Transfer Funds - TC-UI-05', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
 
@@ -56,7 +56,7 @@ test.describe("Transfer Funds Flow", () => {
         console.log(`Transferred ${transferredAmount} from ${checkingAccNumber} to ${savingsAccNumber}`);
     });
 
-    test('Transfer Funds - TC-NEG-02 | Reject zero/negative amount', async ({ page }) => {
+    test('Transfer Funds - TC-NEG-02  Reject zero/negative amount', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
 
@@ -72,7 +72,7 @@ test.describe("Transfer Funds Flow", () => {
         await expect(transferPage.transferComplete).toBeVisible();
     });
 
-    test('Transfer Funds - TC-NEG-03 | Same account transfer still succeeds', async ({ page }) => {
+    test('Transfer Funds - TC-NEG-03 Same account transfer still succeeds', async ({ page }) => {
         const loginUser = new loginUserPage(page);
         await loginUser.loginUser(data.url.baseUrl, uniqueUserName, data.user.password);
         const transferPage = new fundTransferPage(page);

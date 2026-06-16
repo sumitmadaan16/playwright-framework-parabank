@@ -29,7 +29,7 @@ test.beforeAll("registration Logic", async ({ browser }) => {
     await context.close();
 });
 
-test("TC-API-01", async ({ request }) => {
+test("TC-API-01 Get all accounts", async ({ request }) => {
     const loginRes = await login_user(request, uniqueUserName, data.user.password);
     // console.log(loginRes);
     let results: any = {

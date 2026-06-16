@@ -39,7 +39,7 @@ test.beforeAll("registration Logic", async ({ browser }) => {
     await context.close();
 });
 
-test("TC-API-02", async ({ request }) => {
+test("TC-API-02 get account created from UI", async ({ request }) => {
     const loginRes = await login_user(request, uniqueUserName, data.user.password);
     const customer_id = loginRes.id
 
